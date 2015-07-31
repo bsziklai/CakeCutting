@@ -124,3 +124,6 @@ sympy-plots-for-*.tex/
 # WinEdt
 *.bak
 *.sav
+/.project
+/Cake_Cutting_Monotonicity.pdf
+/Cake_Cutting_Monotonicity.tex~
