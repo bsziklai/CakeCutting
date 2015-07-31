@@ -1,0 +1,417 @@
+\documentclass[a4paper,12pt]{article}
+
+
+\usepackage[latin2]{inputenc}
+\usepackage{t1enc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{natbib}
+\usepackage{longtable}
+\usepackage[table]{xcolor}
+\usepackage[affil-it]{authblk}
+
+  \newcommand{\biexample}[2]{
+* \hspace{1cm}   A: \texttt{#1} \\
+* \hspace{1cm}   B: \texttt{#2} \\
+}
+
+\newcommand{\triexample}[3]{ \\
+* \hspace{1cm}   A: \texttt{#1} \\
+* \hspace{1cm}   B: \texttt{#2} \\
+* \hspace{1cm}   C: \texttt{#3}
+}
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{cor}{Corollary}[section]
+\newtheorem{fact}{Fact}[section]
+\newtheorem{claim}{Claim}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{defn}{Definition}[section]
+
+
+
+\begin{document}
+
+\title{Aggregate-monotonicity and Population-monotonicity in Cake-cutting}
+
+\author{Erel Segal-Halevi}
+\affil{Bar-Ilan University}
+
+\author{Bal{\'{a}}zs Sziklai}
+\affil{Centre for Economic and Regional Studies, Hungarian Academy of Sciences, \iffalse Buda\"{o}rsi 45. H-1112 Budapest,  \fi E-mail: koczy@krtk.mta.hu, sziklai.balazs@krtk.mta.hu}
+
+
+
+
+
+
+\date{\today}
+
+\bibliographystyle{apalike}
+
+\maketitle
+
+
+
+\section{Introduction}
+
+A village is built near the sea shore and its lands are divided fairly among the founders. In time, the village grows in area and the lands are re-divided. Can we guarantee that all villagers gain from the growth, or at least not lose?
+Some time later, a few villagers leave the village and their lands become free for re-division. Can we guarantee that all remaining villagers gain from this re-division, or at least not lose?
+
+Similar questions may arise in inheritance cases and divorce settlements. Although the monotonicity issues of division rules have been extensively studied with respect to cooperative game theory \citep{Calleja2012}, the apportionment problem \citep{Balinski1982} or classical economic models \citep{Thomson_2011}, the cake-cutting literature so far focused on other properties of fairness, like proportionality and envy-freeness.
+
+Aggregate monotonicity\footnote{Also known as resource monotonicity.} requires that whenever the cake is enlarged the welfare of the participants should weakly increase. Population monotonicity is concerned with changes in the number of participants. No one should profit from the arrival of a new agent, when more people share the same resource, and everyone should be weakly better of if someone leaves\footnote{\cite{Thomson_2011} uses a more subtle phrasing. He requires that, whenever a change happens in the environment and no one is responsible for it, the welfare of all agents should be affected in the same direction.}. Note, that population monotonicity fundamentally differs from the so called consistency axiom, where the leaving agents take their fair shares with them (cf. \cite{Young1987} or \cite{Thomson_2012}).
+
+Experimental studies show that people value certain fairness criteria more than others. \cite{Herreiner2009} demonstrated that people are willing to sacrifice Pareto-efficiency in order to reach an envy free allocation. To our knowledge no study was ever conducted to unfold the relationship between monotonicity and efficiency or envy-freeness. However some indirect evidence points toward that monotonicity of the solution is in some cases as important as proportionality. 
+
+In the apportionment problem there is a parliament with a fixed number of seats and administrative regions with different number of voters. The question is -- assuming that electoral districts are of equal size within each of the administrative regions -- how to distribute the seats among the administrative regions to minimize the differences between the voters influences. The problem is analogous to cake-cutting where the cake corresponds to the parliamentary seats that have to be distributed. During the 1880 US census C.W. Seaton, a Chief Clerk of the Census Office, noted that an enlargement of the House of Representatives from 299 to 300 would result in loss of seat for State Alabama. This anomaly together with the later discovered population and new state paradoxes pressed the legislators to adopt newer and newer apportionment rules. The currently used seat distribution method is free from such anomalies, however it does not satisfy the so called Hare-quota, a basic guarantee of proportionality \citep{Balinski1975}.
+
+In this paper we analyze aggregate and population monotonicity with respect to cake-cutting. We show that none of the traditional cake cutting protocols satisfy aggregate monotonicity. In particular all the methods which are based on the cut and choose scheme violate it. We show an aggregate monotonic two player method and prove the existence of a proportional and Pareto-optimal protocol which satisfies both aggregate and population monotonicity. In addition we prove several impossibility results. Most importantly we show that aggregate monotonicity is not compatible with proportionality and Pareto-efficiency if we only allow contiguous pieces.  
+
+%The size of the parliament changes due to various reasons, as it did in the US House of Representatives in 1880. 
+
+%These two questions motivate the two axioms of \emph{aggregate monotonicity (AM)} and \emph{population monotonicity (PM)}. These axioms have been studied in the context of resource allocation; we study these axioms in the context of the classic cake-cutting problem \cite{Steinhaus1948Problem}.
+
+
+
+\iffalse
+\section{Model}
+There is a cake $C$, which is assumed to be a 1-dimensional interval in $\mathbb{R}$. There are $n$ agents with different value measures over subsets of the cake. The value measure of agent $i$ is $V_i$. The value measures are assumed to be \emph{absolutely continuous with respect to length}, or just \emph{continuous} for short. This means that there are no valuable "atoms" - all singular points have zero value to all agents. The value measures of all agents are normalized such that $\forall i: V_i(C)=1$.
+All these assumptions are common in the cake-cutting literature.
+
+The cake should be partitioned to $n$ measurable pairwise-disjoint subsets, which we call "pieces". The piece allocated to agent $i$ is marked $C_i$.
+
+A \emph{division rule} is a function that takes as input $n$ continuous value measures and returns a single partition, or a set of partitions.
+
+A partition is called \emph{whole} (WH) if the entire cake is divided, i.e: $\cup_{i=1}^{n}{C_i}=C$. In this paper we consider only whole partitions.
+
+A partition is called \emph{connected} (CON) if each piece is connected (i.e, an interval).
+
+A partition is called \emph{proportional} (PROP) if each agent values its piece as at least $1/n$: $\forall i V_i(C_i)\geq 1/n$. This was the first fairness criterion studied in the context of cake-cutting \cite{Steinhaus1948Problem}.
+
+A partition is called \emph{Pareto-optimal} (PO) if there is no partition which is weakly better for all agents and strictly better for at least one agent.
+
+Often, we consider only connected partitions. In these cases, we call a partition \emph{Pareto-optimal for Connected Allocations} (POCA) if there is no \emph{connected} partition which is weakly better for all agents and strictly better for at least one agent.
+
+A division rule is called WH/CON/PROP/PO/POCA if it returns only WH/CON/PROP/PO/POCA partitions, respectively.
+
+For division rules that return a single partition, the following definitions hold:
+\begin{itemize}
+\item{A rule is AM if, whenever the cake grows [to one side], the value of the piece allocated to each agent is weakly larger.}
+\item{A rule is PM if, whenever one or more agents leave, the value of the piece allocated to each remaining agent is weakly larger.}
+\end{itemize}
+
+For division rules that return a set of partitions, the following definitions hold:
+\begin{itemize}
+\item{A rule is AM if, for every x in the set returned for the smaller (original) cake, there exists y in the set returned for the larger (new) cake,
+such that y is at least as good as x for every agent.}
+\item{A rule is PM if, for every x in the set returned for the larger number of agents, there exists y in the set returned for the smaller (new) number of agents, such that y is at least as good as x for every remaining player.}
+\end{itemize}
+
+The following table summarizes the abbreviations we use for the axioms we study in this paper.
+
+\begin{table}
+    \begin{tabular}{|l|l|}
+        CON  & All players receive connected pieces \\
+        PROP & Proportional - every player receives at least $1/n$ of total  \\
+        PO   & Pareto-Optimal (no weakly better allocation) \\
+        POCA & Pareto-Optimal assuming connected pieces (no weakly better allocation with connected pieces)  \\
+        WH   & Whole cake is divided (note that PO $\to$ POCA $\to$ WH) \\
+        AM   & Aggregate-monotonic  (one-sided) \\
+        PM   & Population-monotonic \\
+    \end{tabular}
+\end{table}
+
+We say that two or more axioms are \emph{compatible} if there exists a division rule which satisfies all of them. Our goal in the rest of the paper is to check what axioms are compatible with the monotonicity axioms AM and PM.
+
+
+\section{Related Work}
+The AM and PM axioms were studied in the context of fair division of homogeneous resources \cite{Moulin_1988} \cite{Moulin_1990} \cite{Thomson_1994} \cite{Thomson_2011}.
+
+Other axioms were studied in the context of fair cake-cutting. \cite{Chambers_2005} studied the axiom of \emph{division independence}, which means that, if a land is divided to sub-plots and each sub-plot is divided according to a rule, then the outcome is identical to dividing the original land using that rule. He proves that the only rule which satisfies PO and division-independence is the \emph{utilitarian-optimal} rule - the rule which maximizes the sum of the agents' utilities. Unfortunately, this rule is incompatible with CON - the piece given to each agent might be a collection of infinitely many tiny fractions of land. We believe that in practical land division setting, connectivity is crucial.
+
+
+\section{Aggregate Monotonicity with Connected Pieces}
+In this section, we assume that CON is a non-negotiable requirement. This makes sense, for example, when the "cake" which has to be divided is a land. People usually want a single, connected piece of land, rather than a large collection of small patches.
+
+It is well known that CON+PO are incompatible. Consider the following cake:
+
+\biexample{0101}{1010}
+
+The only PO allocation is to give slices 1 and 3 to B and the other slices to A, but this allocation is not CON. Therefore, when CON is a requirement, we use either POCA or WH.
+
+\begin{thm}
+The global PROP solution (the solution that returns all proportional allocations) is not AM (not even OSAM).
+\end{thm}
+\begin{proof}
+Consider the following cake:
+
+\biexample{0011}{1111}
+
+The global solution returns some allocations in which the value of A is 2.
+
+However, when the cake is increased to the right like this:
+
+\biexample{001100}{111111}
+
+the only proportional allocation gives A a value of 1.
+\end{proof}
+
+
+The following result is positive:
+
+\begin{thm}
+For two agents, CON+PROP+WH+AM (one-sided) are compatible.
+\end{thm}
+\begin{proof}
+The proof is constructive: we show an AM cake-cutting procedure, which works for the two person case and needs only one cut. Its like a Dubins-Spanier moving knife method only its reversed (instead of left to right, the knife moves from right to left).
+\begin{itemize}
+\item{Ask both players to make a mark which cuts the cake in half according their own valuation.}
+\item{Cut the cake at the righmost mark and give the slice on the right to the player who made the mark.}
+\item{The remaining part is given to the other player.}
+\end{itemize}
+
+
+We now prove that this algorithm is AM when the cake grows to the right. Suppose that the order of marks on the smaller cake was A:B. So Bob got the part from mark B to the right of the cake, which is exactly half for him, and Alice got the part from B to the left of the cake, which is more than half for her. When the cake becomes larger, Bob necessarily receives at least half of a bigger total. For Alice, there are two possible cases:
+\begin{itemize}
+\item{If the order of marks on the larger cake is still A:B, then, since the mark of B moved rightwards, Alice receives a piece containing his previous piece.}
+\item{If the order of the marks on the larger cake is B:A, then Alice now receives the part from A to the right of the cake, but this part is equal for him to the part from A to the left of the cake, which contains the part from B to the left of the cake, which contains Alice's previous piece.}
+\end{itemize}
+\end{proof}
+
+The above procedure divides the whole cake (WH), but the allocation it finds is not necessarily POCA. Indeed, we have:
+
+\begin{thm}
+CON+PROP+POCA+AM (one-sided) are incompatible even for two agents.
+\end{thm}
+\begin{proof}
+Consider the following cake:
+
+\biexample{401}{022}
+
+Any protocol that is CON+PROP+POCA must cut after the first slice. No other allocation is possible. Hence, A gets 4 and B gets 4.
+
+Now the cake grows in the following way:
+
+\biexample{4014}{0220}
+
+Now by proportionality we must give A at least 4.5. No matter how it is done, B gets less than 4. Hence the protocol is not AM.
+\end{proof}
+
+\textcolor{red}{
+We have to check whether CON+PROP+WH+AM are compatible for 3 or more agents.
+If not, whether CON+PROP+AM are compatible for 3 or more agents.
+}
+
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=0.7\columnwidth]{TwoPlayerAM.pdf}
+\caption{Replace this text with your caption%
+}
+\end{center}
+\end{figure}
+
+\section{Population Monotonicity with Connected Pieces}
+
+\begin{thm}
+CON+PROP+POCA+PM are incompatible.
+\end{thm}
+
+\begin{proof}
+Consider the following preferences:
+\triexample{0202020200}{0000000030}{2000002003}
+If C receives the left piece, then by PROP the piece must touch the two "2" slices.
+But then, only a value of 2 is left for A, which contradicts PROP.
+B also obviously cannot receive the left piece.
+Hence, A must receive the left piece.
+
+If C receives the next piece to the right, it must touch the "2" and the "3", which leaves B with no value. Hence, B must receives the next piece, whose value is 3 (and C receives the right piece, whose value is 3).
+
+By POCA, this means that A must receive all the cake up to the "3" slice of B, which means that A's value is 8.
+
+Now, suppose player B leaves. Now $n=2$, so player C must get a value of at least 7/2, so he must get at least the "3" and "2". But this means that A receives a value of at most 6.
+\end{proof}
+
+Note that this proof relies on POCA. Without POCA, we could not prove that the initial value of A must be 8.
+
+\textcolor{red}{
+We have to check whether CON+PROP+WH+PM are compatible.
+If not, check whether    CON+PROP+PM are compatible.
+}
+
+
+
+
+\section{Disconnected pieces}
+In this section we assume that the piece given to each agent need not be connected; it is only required to be measurable. We are going to describe a division rule that satisfies PROP+AM+PM+PO. For ease of presentation, we first describe two simpler rules: a rule that satisfies PROP+AM+PM but is not PO, and a rule that satisfies PO+AM+PM but is not PROP. Then
+
+\subsection{A PROP+AM+PM division rule}
+Given integers $n\geq 1$ and $k\geq 1$, an \textit{exact division} of a cake, marked $Exact(n,k)$, is a partition of the cake to $k$ pieces, such that each of $n$ agents believes that each piece is worth \emph{exactly} $1/k$. Note that an $Exact(n,n)$ division is PROP.
+
+For every $n$ and $k$, there exists an $Exact(n,k)$ division of a cake with at most $n(k-1)$ cuts, and this is the smallest number of cuts that can be guaranteed \cite{Alon_1987}. In particular, there exists an $Exact(n,n)$ division of a cake with at most $n(n-1)$ cuts, and for every $n\geq 2$, such a division is not necessarily CON (since there are more than $n-1$ cuts).
+
+An exact division is necessarily PM, since when an agent leaves, the value of each of the remaining agents rises from $1/n$ to $1/(n-1)$. It is also necessarily AM, since when the cake increases (to either side), all agents receive exactly $1/n$ of a larger whole. Hence we get:
+
+\begin{thm}
+PROP+AM+PM  are compatible.
+\end{thm}
+
+Note that for $n=2$, there is a moving-knife procedure that actually finds an exact division \cite{Austin_1982}. Hence, for $n=2$ the above theorem is constructive.
+
+
+
+\subsection{An AM+PM+PO division rule}
+Our PO solution relies maximizing the sum of the agents' values (also termed: \emph{utilitarian social welfare}). The relation between social welfare optimization and Pareto optimality is well-studied, e.g \cite{Varian_1976}.
+
+We need some definitions. The following definitions are about a partition of a cake $C$ to $n$ pairwise-disjoint measurable pieces: $C = C_1\cup\cdots\cup C_n$:
+
+\begin{defn}
+(a) The \emph{utilitarian social welfare} of a partition is the sum of agents' values: $U = \sum_{i=1}^n{V_i(C_i)}$.
+(b) A partition is called \emph{utilitarian-optimal} if its utilitarian social welfare is maximal among all partitions.
+\end{defn}
+
+A utilitarian-optimal partition is obviously PO, since every Pareto-improvement strictly increases the utilitarian-social-welfare.
+
+Moreover, the rule that selects a utilitarian-optimal partition is division-independent \cite{Chambers_2005}. This means that a utilitarian-optimal partition of a cake can be calculated by combining utilitarian-optimal partitions of two sub-cakes. This implies that the utilitarian-optimal rule is also AM+PM:
+
+\begin{lemma}
+\label{lemma:utilitarian-optimal-is-am-pm}
+The rule that selects a utilitarian-optimal partition is AM and PM.
+\end{lemma}
+\begin{proof}
+For AM, suppose that a cake $C$ is enlarged by a piece $E$ such that the new cake is $C\cup E$. By division independence, a utilitarian-optimal division of $C\cup E$ can be composed of a utilitarian-optimal division of $C$ and a utilitarian-optimal division of $E$. This means that in the utilitarian-optimal division of $C\cup E$, all agents are weakly better-off.
+
+For PM, suppose that agent $n$ leaves and abandons his share $C_n$. Mark $E=C_n$ and $C=C\setminus C_n$. Apply the argument in the previous paragraph to prove that all agents are weakly better-off.
+\end{proof}
+
+\begin{cor}
+AM+PM+PO are compatible.
+\end{cor}
+
+
+
+\subsection{A PROP+AM+PM+PO division rule}
+In general, an exact division is proportional but not Pareto-optimal, and a utilitarian-optimal division is Pareto-optimal but not proportional. Hence, to satisfy both PROP and PO we must work harder. We need some definitions.
+
+\begin{defn}
+Let $k$ be an integer such that $0\leq k\leq n$. Let $W=(W_1,\cdots,W_k)$ a vector of $k$ weights.
+
+(a) A partition is called \emph{$W$-exact} if the values of the first $k$ agents are exactly determined by the vector $W$, i.e: $\forall i\in 1,\cdots,k: V_i(C_i)=W_i$.
+
+(b) A partition is called \emph{$W$-optimal} if its utilitarian social welfare is maximal among all \emph{$W$-exact} partitions.
+\end{defn}
+
+So when $k=0$, $W$ is an empty vector and the set of $W$-optimal partitions coincides with the set of utilitarian-optimal partitions. On the other extreme, when $k=n$ the set of $W$-optimal partitions coincides with the set of $W$-exact partitions.
+
+A necessary condition for the existence of $W$-exact partitions is that the sum of weights in $W$ is at most 1. This condition is also sufficient: whenever the agents' value measures are continuous and $\sum_{i=1}^{k}{W_i}\leq 1$, there exist $W$-exact partitions. This is an immediate corollary of Corollary 1.1 of \cite{Dubins_1961}.
+
+Whenever the agents' value measures are continuous, there exists a utilitarian-optimal partition. This is proved in Theorem 2 of \cite{Dubins_1961}. The following generalization of this theorem can be proved analogously:
+
+\begin{lemma}
+Let $k$ be an integer such that $0\leq k\leq n$. Let $W=(W_1,\cdots,W_k)$ a vector of $k$ weights. If there exist $W$-exact partitions, then there exists a $W$-optimal partition.
+\end{lemma}
+
+\begin{cor}
+Let $W_{n-1}$ be the following vector of length $n-1$: $(\frac{1}{n},\cdots,\frac{1}{n})$. Then there exists a $W_{n-1}$-optimal partition.
+\end{cor}
+
+A $W_{n-1}$-optimal partition is a partition in which the first $n-1$ agents receive exactly their fair share of $1/n$, while the $n$-th agent receives the largest value that can be given to him under this constraint.
+
+A $W_{n-1}$-optimal partition is Pareto-optimal in certain conditions which we now define. The following definition and fact are adapted from basic measure-theory:
+
+\begin{defn}
+(a) A measure on an interval is called \emph{strictly positive} if it assigns a positive value to any non-empty open sub-interval.
+
+(b) The \emph{support} of a measure $V$, written $supp(V)$, is the set of all points $x$ for which every open neighborhood of $x$ has positive measure.
+\end{defn}
+
+\begin{fact}
+Every measure $V$ is strictly positive on $supp(V)$.
+\end{fact}
+
+In the context of cake-cutting, the support of $V_i$ is the subset of the cake from which agent $i$ derives a positive value.
+
+\begin{lemma}
+\label{lemma:W-optimal-is-PO}
+If the value measure of agent $n$ is strictly positive, then any $W_{n-1}$-optimal partition is Pareto-optimal.
+\end{lemma}
+\begin{proof}
+Let $P$ be a $W_{n-1}$-optimal partition. Suppose by contradiction that there exists another partition $Q$ which Pareto-dominates $P$. There are two cases:
+
+(a) The values of all the first $n-1$ agents in $Q$ are the same as in $P$, while the value of agent $n$ is strictly larger in $Q$. But this contradicts our assumption that $P$ is $W_{n-1}$-optimal.
+
+(b) There is one or more agents $i$, where $i<n$, whose value in $Q$ is strictly larger than in $P$. In this case, we can cut a small piece of agent $i$'s share in $Q$, such that the value of agent $i$ reduces to exactly $1/n$. Then we can give the removed piece to agent $n$. Because agent $n$'s value measure is strictly positive, this transfer strictly increases the value of agent $n$. We can do the same to all other agents $i$ where $i<n$. The result is a $W_{n-1}$-exact partition in which agent $n$'s value is strictly more than in the partition $P$. But this again contradicts our assumption that $P$ is $W_{n-1}$-optimal.
+\end{proof}
+
+\begin{lemma}
+If the value measure of agent $n$ is strictly positive, then the rule that selects a $W_{n-1}$-optimal partition is AM and PM.
+\end{lemma}
+\begin{proof}
+Because agents $1,\cdots,n-1$ receive a value of exactly $1/n$, it is clear that they are weakly better-off when the cake is enlarged or when an agent leaves. It remains to prove that this is also true for agent $n$.
+
+Let $P_C$ be a $W_{n-1}$-optimal partition of the original cake $C$.
+
+For AM, suppose that a cake $C$ is enlarged by a piece $E$ such that the new cake is $C\cup E$. Suppose the enlargement $E$ is divided in an $W_{n-1}$-exact way; call this partition $P_E$. Then, the partition composed of $P_C$ and $P_E$ is also a $W_{n-1}$-exact division of $C\cup E$. In this partition, agent $n$ receives the same piece as in $P_C$, so he is weakly better off. By definition, in any $W_{n-1}$-optimal partition the value of agent $n$ is weakly better-off.
+
+For PM, suppose that an agent $i\in 1,\cdots,n-1$ leaves and abandons his piece $C_i$. Mark $E=C_i$ and $C=C\setminus C_i$. Apply the argument in the previous paragraph to prove that agent $n$ is weakly better-off.
+\end{proof}
+
+We are now ready to describe our AM+PM+PROP+PO division rule.
+
+For every subset $K$ of the agents (a subset of $\{1,\cdots,n\}$), define:
+
+$$ C_K := \cap_{i\in K}{supp(V_i)} \setminus \cup_{i\notin K}{supp(V_i)} $$
+
+$C_K$ is the subset of $C$ which is valuable only for the agents in $K$.
+Thus the cake $C$ is partitioned to $2^n$ pairwise-interior-disjoint sub-cakes, one sub-cake for each subset of the agents.
+
+We define the \emph{exact-optimal division rule} as follows:
+
+For every subset $K$ of agents, let $k=|K|$:
+\begin{itemize}
+\item{If $k=0$ ($K=\emptyset$), then discard the sub-cake $C_K$.}
+\item{If $k=1$, then give $C_K$ to the single agent in $k$.}
+\item{Otherwise, divide $C_K$ according to a $W_{k-1}$-optimal partition. I.e, give every agent in $K$ a value of $1/k$ of its valuation of $C_K$, except the agent with the largest index in $K$, which receives the largest possible value subject to this constraint.}
+\end{itemize}
+
+\begin{thm}
+The exact-optimal division rule presented above is PROP+PO+AM+PM
+\end{thm}
+\begin{proof}
+PROP is obvious, since every agent receives a proportional share from every sub-cake whose value for it is positive.
+
+PO is also obvious, since by Lemma \ref{lemma:W-optimal-is-PO}, every division of $C_K$ is Pareto-optimal relative to that cake and the agents in $K$. Because all agents not in $K$ value $C_K$ as 0, this means that the entire division is PO.
+
+For AM, suppose that a cake $C$ is enlarged by an enlargement $E$. Then for every subsets $K$ of the agents, the sub-cake $C_K$ is enlarged by the corresponding subset $E_K$ (which may be empty). By an argument analogous to the proof of Lemma \ref{lemma:utilitarian-optimal-is-am-pm}, in the new division of $C_K\cup E_K$, all agents of $K$ are weakly better-off. This implies that in the new division of $C$, all agents are weakly better-off.
+
+For PM, suppose that agent $i$ leaves and abandons its share $C_i$. This has an effect only on the divisions of the sub-cakes $C_K$ where $i\in K$. In each of these sub-cakes, all agents are weakly better-off by an argument analogous to the proof of Lemma \ref{lemma:utilitarian-optimal-is-am-pm}.
+\end{proof}
+
+\begin{cor}
+PROP+AM+PM+PO are compatible.
+\end{cor}
+
+\textcolor{red}{NOTE: I have a feeling that the \emph{optimal proportional} rule - the rule that selects the proportional allocation with the largest utilitarian welfare - is AM+PM. Of course it is also PROP+PO. If my feeling is correct than we can remove most of this section. But currently the proof eludes me.}
+
+
+
+
+
+
+
+
+\section{Future Work}
+In this paper we studied monotonicity properties in combination with the basic fairness axiom of proportionality. An interesting future research topic is to study the same axioms in combination with the stronger fairness axion of envy-freeness.
+
+
+
+\fi
+
+\bibliography{CCM}
+
+\end{document}
+
